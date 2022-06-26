@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-view></router-view>
+    quest
   </div>
 </template>
 
@@ -10,5 +10,6 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
+
 </style>

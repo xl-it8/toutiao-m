@@ -1,24 +1,4 @@
-# toutiao-m
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+##
+1 自定义主题
+  // 或者可以通过 less 文件覆盖（文件路径为绝对路径）
+hack: `true; @import "${path.resolve(__dirname, './src/styles/theme.less')}";`
