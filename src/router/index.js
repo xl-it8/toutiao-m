@@ -10,28 +10,29 @@ const routes = [
     component: () => import('@/views/login')
   },
   {
-    path: '/',
+    path: '/layout',
     name: 'layout',
     component: () => import('@/views/layout'),
-    redirect: '/home',
+    redirect: '/layout/home',
     children: [
       {
-        path: '/home',
+        path: 'home',
         name: 'home',
         component: () => import('@/views/home')
       },
       {
-        path: '/question',
+        // 子路由的路径不要加/
+        path: 'question',
         name: 'question',
         component: () => import('@/views/question')
       },
       {
-        path: '/video',
+        path: 'video',
         name: 'video',
         component: () => import('@/views/video')
       },
       {
-        path: '/my',
+        path: 'my',
         name: 'my',
         component: () => import('@/views/my')
       }
