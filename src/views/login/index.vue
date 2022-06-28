@@ -1,23 +1,44 @@
 <template>
   <div class="login-container">
     <!-- 导航栏 -->
-    <van-nav-bar title="登录" />
+    <van-nav-bar title="登录" left-arrow @click-left="$router.go(-1)"/>
     <!-- /导航栏 -->
 
     <!-- 登录表单 -->
-    <van-form @submit="onSubmit">
-      <van-field name="用户名" placeholder="请输入手机号" v-model="user.mobile">
+    <van-form @submit="onSubmit" ref="form">
+      <van-field
+        name="mobile"
+        placeholder="请输入手机号"
+        v-model="user.mobile"
+        :rules="[{}, { validator: validator1, message: '请输入正确手机号' }]"
+      >
         <i slot="left-icon" class="toutiao toutiao-shouji"></i>
       </van-field>
       <van-field
-        type="password"
-        name="验证码"
+        type="number"
+        name="code"
         placeholder="请输入验证码"
         v-model="user.code"
+        :rules="[{ validator, message: '请输入正确验证码' }]"
       >
-        <i slot="left-icon" class="toutiao toutiao-yanzhengma"></i>
+        <!-- <i slot="left-icon" class="toutiao toutiao-yanzhengma"></i>
+         -->
+        <MyIcon name="yanzhengma" slot="left-icon"></MyIcon>
         <template #button>
-          <van-button class="send-sms-btn" round size="small" type="default"
+          <van-count-down
+            :time="time"
+            format="ss s"
+            v-if="isCountDown"
+            @finish="isCountDown = false"
+          />
+          <van-button
+            v-else
+            class="send-sms-btn"
+            round
+            size="small"
+            type="default"
+            @click="submitSms"
+            native-type="button"
             >发送验证码</van-button
           >
         </template>
@@ -33,7 +54,7 @@
 </template>
 
 <script>
-// import { loginApi } from '@/api/users'
+import { loginApi, getSmsCode } from '@/api/users'
 export default {
   name: 'LoginPage',
   components: {},
@@ -41,21 +62,56 @@ export default {
   data() {
     return {
       user: {
-        mobile: '',
-        code: ''
-      }
+        mobile: '13911111111',
+        code: '246810'
+      },
+      time: 5 * 1000,
+      isCountDown: false
     }
   },
   computed: {},
   watch: {},
   created() { },
   mounted() {
-
   },
   methods: {
-    onSubmit() {
-      // const res = await loginApi(this.user)
-      // console.log(res)
+    validator1(val) {
+      return /^1[3|5|7|8]\d{9}$/.test(val)
+    },
+    validator(val) {
+      return /^\d{6}$/.test(val)
+    },
+    async onSubmit() {
+      this.$toast.loading({
+        message: '加载中...',
+        forbidClick: true
+      })
+      try {
+        const res = await loginApi(this.user)
+        this.$store.commit('saveUser', res.data.data)
+        // window.localStorage.setItem('refresh_token', res.data.data.refresh_token)
+        // console.log(res)
+        this.$toast.success('登陆成功')
+        this.$router.push({ name: 'home' })
+      } catch (e) {
+        // console.log(e)
+        this.$toast.fail('登陆失败')
+      }
+    },
+    async submitSms() {
+      try {
+        await this.$refs.form.validate('mobile')
+        this.isCountDown = true
+        try {
+          await getSmsCode(this.user.mobile)
+          this.$toast.fail('发送成功')
+        } catch (e) {
+          this.$toast.fail('发送失败')
+        }
+      } catch (e) {
+        this.$toast.fail('校验失败')
+      }
+      // const res = await getSmsCode(this.user.mobile)
     }
   }
 }
@@ -86,6 +142,16 @@ export default {
       background-color: #6db4fb;
       border: none;
     }
+  }
+  .van-count-down {
+    position: fixed;
+    right: 18px;
+    margin-top: -10px;
+  }
+  .send-sms-btn {
+    position: fixed;
+    right: 10px;
+    margin-top: -10px;
   }
 }
 </style>
