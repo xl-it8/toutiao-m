@@ -9,25 +9,25 @@
             height="1.76rem"
             :src="userInfo.photo"
           />
-          <span>{{userInfo.name}}</span>
+          <span>{{ userInfo.name }}</span>
         </div>
         <div class="button">编辑资料</div>
       </div>
       <div class="context">
         <div class="info">
-          <span class="num">{{userInfo.art_count}}</span>
+          <span class="num">{{ userInfo.art_count }}</span>
           <span class="nr">头条</span>
         </div>
         <div class="info">
-          <span class="num">{{userInfo.fans_count}}</span>
+          <span class="num">{{ userInfo.fans_count }}</span>
           <span class="nr">粉丝</span>
         </div>
         <div class="info">
-          <span class="num">{{userInfo.follow_count}}</span>
+          <span class="num">{{ userInfo.follow_count }}</span>
           <span class="nr">关注</span>
         </div>
         <div class="info">
-          <span class="num">{{userInfo.like_count}}</span>
+          <span class="num">{{ userInfo.like_count }}</span>
           <span class="nr">获赞</span>
         </div>
       </div>
@@ -75,10 +75,10 @@ export default {
     }
   },
   async created() {
-    if (this.user && this.user.token) {
+    if (this.user?.token) {
       try {
         const res = await getUserInfo()
-        console.log(res);
+        console.log(res)
         this.userInfo = res.data.data
       } catch (e) {
         console.log(e)

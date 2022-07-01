@@ -18,3 +18,5 @@ children: [
 },
 
 3 正则表达式 /d 代表[0~9] 只要有一个匹配就是true  
+
+4 flex布局中使用flex：1 和我们自己设置宽度 flex优先级高 解决方法 改为min-width：xxpx
