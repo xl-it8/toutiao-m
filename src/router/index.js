@@ -13,7 +13,11 @@ const routes = [
     path: '/layout',
     name: 'layout',
     component: () => import('@/views/layout'),
+<<<<<<< HEAD
     redirect: '/layout/my',
+=======
+    redirect: '/layout/home',
+>>>>>>> ab3c3c799e5895f326ff0451f8c4d318b24693fa
     children: [
       {
         path: 'home',

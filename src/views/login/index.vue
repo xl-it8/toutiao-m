@@ -92,7 +92,10 @@ export default {
         // window.localStorage.setItem('refresh_token', res.data.data.refresh_token)
         // console.log(res)
         this.$toast.success('登陆成功')
+<<<<<<< HEAD
         this.$router.push({ name: 'home' })
+=======
+>>>>>>> ab3c3c799e5895f326ff0451f8c4d318b24693fa
       } catch (e) {
         // console.log(e)
         this.$toast.fail('登陆失败')

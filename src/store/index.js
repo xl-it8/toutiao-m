@@ -7,13 +7,18 @@ const vuexLocal = new VuexPersistence({
 })
 export default new Vuex.Store({
   state: {
+<<<<<<< HEAD
     user: {},
     searchHistoryList: []
+=======
+    token: {}
+>>>>>>> ab3c3c799e5895f326ff0451f8c4d318b24693fa
   },
   getters: {
   },
   mutations: {
     saveUser(state, payLoad) {
+<<<<<<< HEAD
       console.log(payLoad)
       state.user = payLoad
       // 防止一刷新数据不见了
@@ -30,6 +35,11 @@ export default new Vuex.Store({
     },
     setAllDelete(state, payLoad) {
       state.searchHistoryList = []
+=======
+      state.token = payLoad
+      // 防止一刷新数据不见了
+      window.localStorage.setItem('refresh_token', JSON.stringify(payLoad))
+>>>>>>> ab3c3c799e5895f326ff0451f8c4d318b24693fa
     }
   },
   actions: {

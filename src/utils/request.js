@@ -1,7 +1,11 @@
 import axios from 'axios'
 import store from '@/store'
 // 方便复用 低耦合
+<<<<<<< HEAD
 const instance = axios.create({
+=======
+export default axios.create({
+>>>>>>> ab3c3c799e5895f326ff0451f8c4d318b24693fa
   baseURL: 'http://toutiao.itheima.net/v1_0', // 基础路径
   timeout: 5000
 })
